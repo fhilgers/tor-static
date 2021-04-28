@@ -7,12 +7,16 @@ on:
 
 jobs:
   release:
-    runs-on: alpine-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Install tools
-        run: apk add gcc musl-dev linux-headers make perl automake autoconf libtool wget
+        run: |
+            apt-get update
+            apt-get install wget make musl-tools perl automake libtool
+      - name: Checkout code
+        uses: actions/checkout@v2
       - name: Build Tor
-        run: make -j
+        run: CC=musl-gcc make -j
       - name: Strip Tor
         run: strip ./install/bin/tor
       - name: Release
