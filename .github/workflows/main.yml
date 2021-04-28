@@ -16,7 +16,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Build Tor
-        run: PKG_CONFIG_PATH=$PWD/install/lib/pkgconf make -j
+        run: make -j
       - name: Strip Tor
         run: strip ./install/bin/tor
       - name: Release
