@@ -25,7 +25,6 @@ SRC_DIRS = $(LIBCAP) $(OPENSSL) $(LIBEVENT) $(ZLIB) $(TOR)
 DL_CMD = wget -c -O
 
 OUTPUT = $(PWD)/install
-GCC = "musl-gcc"
 
 
 all:
@@ -61,8 +60,14 @@ $(SOURCE_DIR)/%.tar.gz: | $(SOURCES)
 
 all: | $(SRC_DIRS)
 	( cd $(LIBCAP) && $(MAKE) )
-	( cd $(OPENSSL) && ./config --prefix=$(OUTPUT) no-shared no-dso no-zlib CC=$(GCC) && $(MAKE) && $(MAKE) install_sw )
-	( cd $(LIBEVENT) && ./configure --prefix=$(OUTPUT) \
+	( cd $(OPENSSL) && ./config \
+				--prefix=$(OUTPUT) \
+				no-shared \
+				no-dso \
+				no-zlib \
+				&& $(MAKE) && $(MAKE) install_sw )
+	( cd $(LIBEVENT) && ./configure \
+				--prefix=$(OUTPUT) \
 				--disable-shared \
 				--enable-static \
 				--with-pic \
@@ -70,10 +75,13 @@ all: | $(SRC_DIRS)
 				--disable-libevent-regress \
 				CPPFLAGS=-I$(OUTPUT)/include \
 				LDFLAGS=-L$(OUTPUT)/lib \
-				CC=$(GCC) && \
-				$(MAKE) && $(MAKE) install )
-	( cd $(ZLIB) && CC=$(GCC) ./configure --prefix=$(OUTPUT) --static && $(MAKE) && $(MAKE) install )
-	( cd $(TOR) && ./configure --prefix=$(OUTPUT) \
+				&& $(MAKE) && $(MAKE) install )
+	( cd $(ZLIB) && ./configure \
+			--prefix=$(OUTPUT) \
+			--static && $(MAKE) \
+			&& $(MAKE) install )
+	( cd $(TOR) && ./configure \
+			--prefix=$(OUTPUT) \
 			--disable-gcc-hardening \
 			--disable-system-torrc \
 			--disable-asciidoc \
@@ -88,5 +96,5 @@ all: | $(SRC_DIRS)
 			--disable-seccomp \
 			--disable-libscrypt \
 			--enable-static-tor \
-			LDFLAGS=-L$(PWD)/$(LIBCAP)/libcap CC=$(GCC) && \
-			$(MAKE) && $(MAKE) install )
+			LDFLAGS=-L$(PWD)/$(LIBCAP)/libcap \
+			&& $(MAKE) && $(MAKE) install )
