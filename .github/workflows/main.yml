@@ -8,6 +8,7 @@ on:
 jobs:
   release:
     runs-on: alpine-latest
+    steps:
       - name: Install tools
         run: apk add gcc musl-dev linux-headers make perl automake autoconf libtool wget
       - name: Build Tor
@@ -24,7 +25,3 @@ jobs:
           files: |
             ./LICENSE
             ./install/bin/tor
-          
-      
-
-
