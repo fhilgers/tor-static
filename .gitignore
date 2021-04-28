@@ -1,0 +1,6 @@
+tor*
+libevent*
+libcap*
+zlib*
+openssl*
+install
