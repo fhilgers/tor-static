@@ -12,11 +12,11 @@ jobs:
       - name: Install tools
         run: |
             sudo apt-get update
-            sudo apt-get install wget make musl-tools perl automake libtool
+            sudo apt-get install wget make musl-tools perl automake libtool pkgconf
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Build Tor
-        run: CC=musl-gcc make -j
+        run: PKG_CONFIG_PATH=$PWD/install/lib/pkgconf make -j
       - name: Strip Tor
         run: strip ./install/bin/tor
       - name: Release
