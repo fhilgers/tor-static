@@ -66,7 +66,7 @@ all: | $(SRC_DIRS)
 				no-dso \
 				no-zlib \
 				&& $(MAKE) && $(MAKE) install_sw )
-	( cd $(LIBEVENT) && ./configure \
+	( cd $(LIBEVENT) && ./autogen.sh && ./configure \
 				--prefix=$(OUTPUT) \
 				--disable-shared \
 				--enable-static \
@@ -80,7 +80,7 @@ all: | $(SRC_DIRS)
 			--prefix=$(OUTPUT) \
 			--static && $(MAKE) \
 			&& $(MAKE) install )
-	( cd $(TOR) && ./configure \
+	( cd $(TOR) && aclocal && ./configure \
 			--prefix=$(OUTPUT) \
 			--disable-gcc-hardening \
 			--disable-system-torrc \
