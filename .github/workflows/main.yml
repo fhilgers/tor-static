@@ -1,0 +1,30 @@
+name: Release
+
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: alpine-latest
+      - name: Install tools
+        run: apk add gcc musl-dev linux-headers make perl automake autoconf libtool wget
+      - name: Build Tor
+        run: make -j
+      - name: Strip Tor
+        run: strip ./install/bin/tor
+      - name: Release
+        uses: marvinpinto/action-automatic-releases@latest
+        with: 
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Testing Build"
+          files: |
+            ./LICENSE
+            ./install/bin/tor
+          
+      
+
+
