@@ -11,8 +11,8 @@ jobs:
     steps:
       - name: Install tools
         run: |
-            apt-get update
-            apt-get install wget make musl-tools perl automake libtool
+            sudo apt-get update
+            sudo apt-get install wget make musl-tools perl automake libtool
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Build Tor
