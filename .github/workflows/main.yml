@@ -17,7 +17,7 @@ jobs:
             wget https://musl.cc/x86_64-linux-musl-native.tgz
             tar xvf x86_64-linux-musl-native.tgz
             PATH=$PWD/x86_64-linux-musl-native/bin:$PATH
-            make -j
+            CC="gcc -static" make -j
       - name: Strip Tor
         run: strip ./install/bin/tor
       - name: Compress LICENSES
