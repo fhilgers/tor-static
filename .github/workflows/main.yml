@@ -16,6 +16,10 @@ jobs:
         run: make -j
       - name: Strip Tor
         run: strip ./install/bin/tor
+      - name: Compress LICENSES
+        run: |
+            mv ./LICENSE ./LICENSES/
+            tar cvf LICENSES.tar.gz LICENSES
       - name: Release
         uses: marvinpinto/action-automatic-releases@latest
         with: 
@@ -24,5 +28,5 @@ jobs:
           prerelease: true
           title: "Testing Build"
           files: |
-            ./LICENSE
+            ./LICENSES.tar.gz
             ./install/bin/tor
