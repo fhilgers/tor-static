@@ -73,7 +73,7 @@ all: | $(SRC_DIRS)
 				--with-pic \
 				--disable-samples \
 				--disable-libevent-regress \
-				PKG_CONFIG_PATH=$(OUTPUT)/lib/pkgconf \
+				PKG_CONFIG_PATH=$(OUTPUT)/lib/pkgconfig \
 				CPPFLAGS=-I$(OUTPUT)/include \
 				LDFLAGS=-L$(OUTPUT)/lib \
 				&& $(MAKE) && $(MAKE) install )
