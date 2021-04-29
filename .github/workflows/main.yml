@@ -9,11 +9,15 @@ jobs:
       - name: Install tools
         run: |
             sudo apt-get update
-            sudo apt-get install wget make musl-tools perl automake libtool pkgconf
+            sudo apt-get install wget make perl automake libtool pkgconf
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Build Tor
-        run: make -j
+        run: |
+            wget x86_64-linux-musl-native.tgz
+            tar xvf x86_64-linux-musl-native.tgz
+            PATH=$PWD/x86_64-linux-musl-native/bin:$PATH
+            make -j
       - name: Strip Tor
         run: strip ./install/bin/tor
       - name: Compress LICENSES
