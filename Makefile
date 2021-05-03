@@ -37,6 +37,7 @@ endif
 SRC_DIRS = $(OPENSSL) $(LIBEVENT) $(ZLIB) $(MUSL) $(TOR)
 
 BUILD_DIR = build/$(HOST)
+export PATH := $(CURDIR)/$(MUSL)/$(HOST)/bin:$(CURDIR)/$(MUSL)/bin:$(PATH)
 
 all:
 
@@ -97,9 +98,8 @@ $(BUILD_DIR)/config.mak: | $(BUILD_DIR)
 		"LDFLAGS = -L$(PWD)/$(MUSL)/$(HOST)/lib -L$(PWD)/$(MUSL)/lib" \
 		"CPPFLAGS = -I$(PWD)/$(MUSL)/$(HOST)/include -I$(PWD)/$(MUSL)/include" \
 
-
 all: | $(SRC_DIRS) $(BUILD_DIR) $(BUILD_DIR)/Makefile $(BUILD_DIR)/config.mak
-	cd $(BUILD_DIR) && PATH=$(CURDIR)/$(MUSL)/$(HOST)/bin:$(CURDIR)/$(MUSL)/bin:$(PATH) $(MAKE) $@
+	cd $(BUILD_DIR) && $(MAKE) $@
 
 install: | $(SRC_DIRS) $(BUILD_DIR) $(BUILD_DIR)/Makefile $(BUILD_DIR)/config.mak
 	mkdir -p $(OUTPUT)

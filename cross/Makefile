@@ -23,6 +23,7 @@ FULL_LIBEVENT_CONFIG = \
 	--disable-libevent-regress \
 	--disable-openssl
 
+
 FULL_ZLIB_CONFIG = \
 	--prefix= \
 	--static
@@ -85,7 +86,6 @@ obj_openssl/.lc_configured: | obj_openssl src_openssl
 	touch $@
 obj_libevent/.lc_configured: | obj_libevent src_libevent
 	cd src_libevent && ./autogen.sh
-	echo "$(FULL_LIBEVENT_CONFIG)"
 	cd obj_libevent && ../src_libevent/configure $(FULL_LIBEVENT_CONFIG)
 	touch $@
 obj_zlib/.lc_configured: | obj_zlib src_zlib
