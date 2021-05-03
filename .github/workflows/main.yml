@@ -9,11 +9,12 @@ jobs:
       - name: Install tools
         run: |
             sudo apt-get update
-            sudo apt-get install wget make perl automake libtool pkgconf
+            sudo apt-get install wget make perl automake libtool
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Build Tor
         run: |
+            make TARGET=x86_64-linux -j install
             make TARGET=x86_64-windows -j install
       - name: Strip Tor
         run: cd output && strip ./tor && strip tor.exe
