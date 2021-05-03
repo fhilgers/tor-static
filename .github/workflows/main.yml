@@ -14,8 +14,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Build Tor
         run: |
-            make TARGET=x86_64-linux -j install
-            make TARGET=x86_64-windows -j install
+            make TARGET=x86_64-linux -j install 1>/dev/null
+            make TARGET=x86_64-windows -j install 1>/dev/null
       - name: Strip Tor
         run: cd output && strip ./tor && strip tor.exe
       - name: Compress LICENSES

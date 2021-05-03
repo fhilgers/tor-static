@@ -57,27 +57,29 @@ $(SOURCE_DIR)/$(LIBEVENT).tar.gz: SITE = $(LIBEVENT_SITE)
 $(SOURCE_DIR)/$(ZLIB).tar.gz: SITE = $(ZLIB_SITE)
 
 
-$(SOURCE_DIR)/%: | $(SOURCES)
+$(SOURCE_DIR)/%: | $(SOURCES_DIR)
 	mkdir -p $@.tmp
 	cd $@.tmp && $(DL_CMD) $(notdir $@) $(SITE)/$(notdir $@)
 	mv $@.tmp/$(notdir $@) $@
 	rm -rf $@.tmp
 
-%: $(SOURCE_DIR)/%.tar.gz | $(SOURCES)
+%: $(SOURCE_DIR)/%.tar.gz
 	case "$@" in */*) exit 1 ;; esac
 	rm -rf $@.tmp
 	mkdir $@.tmp
 	( cd $@.tmp && tar zxvf - ) < $<
 	rm -rf $@
+	touch $@.tmp/$@
 	mv $@.tmp/$@ $@
 	rm -rf $@.tmp
 
-%: $(SOURCE_DIR)/%.tgz | $(SOURCES)
+%: $(SOURCE_DIR)/%.tgz
 	case "$@" in */*) exit 1 ;; esac
 	rm -rf $@.tmp
 	mkdir $@.tmp
 	( cd $@.tmp && tar zxvf - ) < $<
 	rm -rf $@
+	touch $@.tmp/$@
 	mv $@.tmp/$@ $@
 	rm -rf $@.tmp
 
@@ -104,7 +106,3 @@ all: | $(SRC_DIRS) $(BUILD_DIR) $(BUILD_DIR)/Makefile $(BUILD_DIR)/config.mak
 install: | $(SRC_DIRS) $(BUILD_DIR) $(BUILD_DIR)/Makefile $(BUILD_DIR)/config.mak
 	mkdir -p $(OUTPUT)
 	cd $(BUILD_DIR) && $(MAKE) OUTPUT=$(OUTPUT) $@
-
-
-
-.PHONY: all
