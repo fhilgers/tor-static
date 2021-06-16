@@ -3,7 +3,7 @@ OUTPUT = $(CURDIR)/output
 SOURCE_DIR = sources
 
 
-TOR_VER = 0.4.5.7
+TOR_VER = 0.4.5.8
 OPENSSL_VER = 1.1.1k
 ZLIB_VER = 1.2.11
 LIBEVENT_VER = 2.1.12
